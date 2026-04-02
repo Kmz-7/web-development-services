@@ -11,13 +11,14 @@
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.98 0 0);
+  --primary: oklch(67.437% 0.15255 56.817);
+  --primary-gradient: linear-gradient(135deg,oklch(67% 0.15 56),oklch(75% 0.18 70));
   --primary-foreground: oklch(0.09 0 0);
   --secondary: oklch(0.18 0 0);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.18 0 0);
   --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.75 0.15 145);
+  --accent: oklch(67.437% 0.15255 56.817);
   --accent-foreground: oklch(0.09 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
@@ -88,5 +89,59 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    background: oklch(65.711% 0.16526 52.087);
+    color: black;
+    padding: 12px 20px;
+    border-radius: 10px;
+  }
+
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,0.4),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  .btn-secondary {
+    position: relative;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: white;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.25s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: oklch(67% 0.15 56);
+    box-shadow: 0 0 0 1px oklch(67% 0.15 56), 0 5px 20px rgba(255,140,0,0.2);
+  }
+
+  .btn-primary:hover::after {
+    left: 120%;
+  }
+
+  .btn-primary svg {
+    transition: transform 0.2s;
+  }
+
+  .btn-primary:hover svg {
+    transform: translateX(4px);
   }
 }

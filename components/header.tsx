@@ -20,11 +20,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-              <Code2 className="w-5 h-5 text-accent-foreground" />
-            </div>
+            <img src="/logo.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              WebCraft
+              Desenvolvimento Digital
             </span>
           </a>
 

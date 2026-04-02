@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import './css/globals.css'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -14,21 +14,21 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'WebCraft Studio | Sites Profissionais para sua Marca',
-  description: 'Desenvolvemos sites institucionais e de divulgação de marca com design moderno e tecnologia de ponta. Transforme sua presença digital.',
+  title: 'TI Desenvolvimento Digital',
+  description: 'Desenvolvemos sites para o que você precisar, com design moderno e tecnologias de ponta. Transforme sua presença digital.',
   generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/logo.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/logo.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: '/logo.png',
         type: 'image/svg+xml',
       },
     ],

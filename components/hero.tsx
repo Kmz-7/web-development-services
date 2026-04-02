@@ -43,7 +43,7 @@ export function Hero() {
             Ver Templates
             <ArrowRight className="w-4 h-4" />
           </Button>
-          <Button size="lg" variant="outline" className="gap-2 px-8">
+          <Button size="lg" variant="secondary" className="gap-2 px-8">
             Falar com Especialista
           </Button>
         </div>

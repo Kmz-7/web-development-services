@@ -9,11 +9,9 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-              <Code2 className="w-5 h-5 text-accent-foreground" />
-            </div>
+            <img src="/logo.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              WebCraft
+              Desenvolvimento Digital
             </span>
           </a>
 
@@ -35,7 +33,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} WebCraft. Todos os direitos reservados.
+            © {currentYear} TI Desenvolvimento Digital. Todos os direitos reservados.
           </p>
         </div>
       </div>
