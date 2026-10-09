@@ -1,5 +1,8 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle2 } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 const highlights = [
   "Comunicação clara durante todo o projeto",
@@ -11,6 +14,8 @@ const highlights = [
 ]
 
 export function About() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en-US"
   return (
     <section id="sobre" className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -18,28 +23,25 @@ export function About() {
           {/* Content */}
           <div>
             <Badge variant="outline" className="mb-4 border-accent/50 text-accent">
-              Sobre
+              {isEnglish ? "About" : "Sobre"}
             </Badge>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              Criando experiências
+              {isEnglish ? "Creating memorable" : "Criando experiências"}
               <br />
-              <span className="text-muted-foreground">digitais memoráveis</span>
+              <span className="text-muted-foreground">{isEnglish ? "digital experiences" : "digitais memoráveis"}</span>
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Somos especializados em desenvolver sites que não apenas impressionam 
-                visualmente, mas que também geram resultados concretos para nossos clientes.
+                {isEnglish ? "We specialize in building websites that not only look impressive but also deliver real results for our clients." : "Somos especializados em desenvolver sites que não apenas impressionam visualmente, mas que também geram resultados concretos para nossos clientes."}
               </p>
               <p>
-                Cada projeto é tratado de forma única, com atenção aos detalhes e foco 
-                em entregar uma presença digital que realmente represente sua marca e 
-                conecte com seu público.
+                {isEnglish ? "Every project is unique, with careful attention to detail and a focus on building a digital presence that represents your brand and connects with your audience." : "Cada projeto é tratado de forma única, com atenção aos detalhes e foco em entregar uma presença digital que realmente represente sua marca e conecte com seu público."}
               </p>
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
-              {highlights.map((item) => (
+              {(isEnglish ? ["Clear communication throughout the project", "On-time delivery", "Post-launch support included", "Training to manage your website", "Clean, well-documented code", "Hosting guidance included"] : highlights).map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="text-sm">{item}</span>

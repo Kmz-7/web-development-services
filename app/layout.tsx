@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 const inter = Inter({ 
@@ -14,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'WebCraft Studio | Sites Profissionais para sua Marca',
+  title: 'Niarts Development Tech | Sites Profissionais para sua Marca',
   description: 'Desenvolvemos sites institucionais e de divulgação de marca com design moderno e tecnologia de ponta. Transforme sua presença digital.',
   generator: 'v0.app',
   icons: {
@@ -44,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

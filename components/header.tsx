@@ -3,16 +3,18 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Code2 } from "lucide-react"
-
-const navLinks = [
-  { href: "#templates", label: "Templates" },
-  { href: "#servicos", label: "Serviços" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#contato", label: "Contato" },
-]
+import { useLanguage } from "@/components/language-provider"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { language, setLanguage } = useLanguage()
+  const isEnglish = language === "en-US"
+  const navLinks = [
+    { href: "#templates", label: isEnglish ? "Templates" : "Templates" },
+    { href: "#servicos", label: isEnglish ? "Services" : "Serviços" },
+    { href: "#sobre", label: isEnglish ? "About" : "Sobre" },
+    { href: "#contato", label: isEnglish ? "Contact" : "Contato" },
+  ]
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -24,7 +26,7 @@ export function Header() {
               <Code2 className="w-5 h-5 text-accent-foreground" />
             </div>
             <span className="font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              WebCraft
+              Niarts Development Tech
             </span>
           </a>
 
@@ -42,13 +44,16 @@ export function Header() {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <LanguageSelector isEnglish={isEnglish} />
             <Button className="gap-2">
-              Começar Projeto
+              {isEnglish ? "Start a Project" : "Começar Projeto"}
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
+          <div className="flex items-center gap-2 md:hidden">
+          <LanguageSelector isEnglish={isEnglish} />
           <button
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -60,6 +65,7 @@ export function Header() {
               <Menu className="w-6 h-6" />
             )}
           </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -77,12 +83,39 @@ export function Header() {
                 </a>
               ))}
               <Button className="mt-2 w-full">
-                Começar Projeto
+                {isEnglish ? "Start a Project" : "Começar Projeto"}
               </Button>
             </nav>
           </div>
         )}
       </div>
     </header>
+  )
+}
+
+function LanguageSelector({ isEnglish }: { isEnglish: boolean }) {
+  const { language, setLanguage } = useLanguage()
+
+  return (
+    <div className="flex items-center gap-1" role="group" aria-label={isEnglish ? "Choose language" : "Escolher idioma"}>
+      <button
+        type="button"
+        onClick={() => setLanguage("pt-BR")}
+        aria-label="Português do Brasil"
+        aria-pressed={language === "pt-BR"}
+        className={`rounded-md p-1 text-xl transition-opacity ${language === "pt-BR" ? "opacity-100" : "opacity-50 hover:opacity-80"}`}
+      >
+        🇧🇷
+      </button>
+      <button
+        type="button"
+        onClick={() => setLanguage("en-US")}
+        aria-label="English (United States)"
+        aria-pressed={language === "en-US"}
+        className={`rounded-md p-1 text-xl transition-opacity ${language === "en-US" ? "opacity-100" : "opacity-50 hover:opacity-80"}`}
+      >
+        🇺🇸
+      </button>
+    </div>
   )
 }

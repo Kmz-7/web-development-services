@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Eye } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 interface LayoutTemplate {
   id: string
@@ -72,8 +73,18 @@ const templates: LayoutTemplate[] = [
   }
 ]
 
-function LayoutCard({ template }: { template: LayoutTemplate }) {
+function LayoutCard({ template, language }: { template: LayoutTemplate; language: "pt-BR" | "en-US" }) {
   const [isHovered, setIsHovered] = useState(false)
+  const isEnglish = language === "en-US"
+  const translatedTemplates: Record<string, { category: string; description: string; features: string[] }> = {
+    "1": { category: "Business", description: "Professional layout for established companies", features: ["Responsive", "SEO Optimized", "5 Pages"] },
+    "2": { category: "Landing Page", description: "Perfect for startups and product launches", features: ["One Page", "Animations", "Conversions"] },
+    "3": { category: "Portfolio", description: "Showcase your work with style and impact", features: ["Gallery", "Blog", "Contact"] },
+    "4": { category: "Business", description: "Build trust and communicate professionalism", features: ["Premium", "10 Pages", "CRM Ready"] },
+    "5": { category: "Brand", description: "Make your brand stand out with striking design", features: ["Branding", "Animated", "Modern"] },
+    "6": { category: "Services", description: "Ideal for professionals and service providers", features: ["Scheduling", "Forms", "WhatsApp"] },
+  }
+  const translated = isEnglish ? translatedTemplates[template.id] : null
 
   return (
     <div 
@@ -91,7 +102,7 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
         >
           <img 
             src={template.imageUrl}
-            alt={`Preview do layout ${template.name}`}
+            alt={isEnglish ? `Preview of the ${template.name} layout` : `Preview do layout ${template.name}`}
             className="w-full h-auto min-h-[400%] object-cover object-top"
           />
         </div>
@@ -100,7 +111,7 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
         <div className={`absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           <Button variant="secondary" size="sm" className="gap-2">
             <Eye className="w-4 h-4" />
-            Ver Preview
+          {isEnglish ? "Preview" : "Ver Preview"}
           </Button>
         </div>
 
@@ -109,7 +120,7 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
           variant="secondary" 
           className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm text-foreground"
         >
-          {template.category}
+          {translated?.category ?? template.category}
         </Badge>
       </div>
 
@@ -121,12 +132,12 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
         </div>
         
         <p className="text-muted-foreground text-sm mb-4 flex-1">
-          {template.description}
+          {translated?.description ?? template.description}
         </p>
 
         {/* Features */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {template.features.map((feature) => (
+          {(translated?.features ?? template.features).map((feature) => (
             <span 
               key={feature}
               className="text-xs px-2 py-1 rounded-md bg-secondary text-muted-foreground"
@@ -137,7 +148,7 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
         </div>
 
         <Button className="w-full gap-2 group/btn">
-          Solicitar Orçamento
+          {isEnglish ? "Request a Quote" : "Solicitar Orçamento"}
           <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
         </Button>
       </div>
@@ -146,6 +157,8 @@ function LayoutCard({ template }: { template: LayoutTemplate }) {
 }
 
 export function LayoutShowcase() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en-US"
   return (
     <section id="templates" className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -155,30 +168,29 @@ export function LayoutShowcase() {
             Templates
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-            Escolha o layout ideal
+            {isEnglish ? "Choose the ideal layout" : "Escolha o layout ideal"}
             <br />
-            <span className="text-muted-foreground">para seu negócio</span>
+            <span className="text-muted-foreground">{isEnglish ? "for your business" : "para seu negócio"}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Passe o mouse sobre cada layout para visualizar a página completa. 
-            Todos os templates são personalizáveis e otimizados para conversão.
+            {isEnglish ? "Hover over each layout to preview the full page. All templates are customizable and optimized for conversions." : "Passe o mouse sobre cada layout para visualizar a página completa. Todos os templates são personalizáveis e otimizados para conversão."}
           </p>
         </div>
 
         {/* Templates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.map((template) => (
-            <LayoutCard key={template.id} template={template} />
+            <LayoutCard key={template.id} template={template} language={language} />
           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center mt-16">
           <p className="text-muted-foreground mb-4">
-            Não encontrou o que procura? Criamos layouts personalizados!
+            {isEnglish ? "Can't find what you're looking for? We create custom layouts!" : "Não encontrou o que procura? Criamos layouts personalizados!"}
           </p>
           <Button variant="outline" size="lg" className="gap-2">
-            Solicitar Layout Personalizado
+            {isEnglish ? "Request a Custom Layout" : "Solicitar Layout Personalizado"}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </div>

@@ -1,7 +1,12 @@
+"use client"
+
 import { Code2 } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const { language } = useLanguage()
+  const isEnglish = language === "en-US"
 
   return (
     <footer className="py-12 px-4 border-t border-border">
@@ -13,7 +18,7 @@ export function Footer() {
               <Code2 className="w-5 h-5 text-accent-foreground" />
             </div>
             <span className="font-bold text-lg" style={{ fontFamily: 'var(--font-display)' }}>
-              WebCraft
+              Niarts Development Tech
             </span>
           </a>
 
@@ -23,19 +28,19 @@ export function Footer() {
               Templates
             </a>
             <a href="#servicos" className="text-muted-foreground hover:text-foreground transition-colors">
-              Serviços
+              {isEnglish ? "Services" : "Serviços"}
             </a>
             <a href="#sobre" className="text-muted-foreground hover:text-foreground transition-colors">
-              Sobre
+              {isEnglish ? "About" : "Sobre"}
             </a>
             <a href="#contato" className="text-muted-foreground hover:text-foreground transition-colors">
-              Contato
+              {isEnglish ? "Contact" : "Contato"}
             </a>
           </nav>
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} WebCraft. Todos os direitos reservados.
+            © {currentYear} Niarts Development Tech. {isEnglish ? "All rights reserved." : "Todos os direitos reservados."}
           </p>
         </div>
       </div>

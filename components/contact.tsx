@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MessageSquare, Send } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { language } = useLanguage()
+  const isEnglish = language === "en-US"
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -16,7 +19,7 @@ export function Contact() {
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSubmitting(false)
-    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.")
+    alert(isEnglish ? "Message sent successfully! We'll be in touch soon." : "Mensagem enviada com sucesso! Entraremos em contato em breve.")
   }
 
   return (
@@ -25,14 +28,13 @@ export function Contact() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <Badge variant="outline" className="mb-4 border-accent/50 text-accent">
-            Contato
+            {isEnglish ? "Contact" : "Contato"}
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-            Vamos conversar?
+            {isEnglish ? "Let's talk" : "Vamos conversar?"}
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-            Conte-nos sobre seu projeto e receba um orçamento 
-            personalizado em até 24 horas.
+            {isEnglish ? "Tell us about your project and receive a custom quote within 24 hours." : "Conte-nos sobre seu projeto e receba um orçamento personalizado em até 24 horas."}
           </p>
         </div>
 
@@ -41,11 +43,11 @@ export function Contact() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium">
-                Nome
+                {isEnglish ? "Name" : "Nome"}
               </label>
               <Input 
                 id="name"
-                placeholder="Seu nome"
+                placeholder={isEnglish ? "Your name" : "Seu nome"}
                 required
               />
             </div>
@@ -56,7 +58,7 @@ export function Contact() {
               <Input 
                 id="email"
                 type="email"
-                placeholder="seu@email.com"
+                placeholder={isEnglish ? "you@email.com" : "seu@email.com"}
                 required
               />
             </div>
@@ -64,40 +66,40 @@ export function Contact() {
 
           <div className="space-y-2">
             <label htmlFor="phone" className="text-sm font-medium">
-              WhatsApp / Telefone
+              {isEnglish ? "WhatsApp / Phone" : "WhatsApp / Telefone"}
             </label>
             <Input 
               id="phone"
-              placeholder="(00) 00000-0000"
+              placeholder={isEnglish ? "Your phone number" : "(00) 00000-0000"}
             />
           </div>
 
           <div className="space-y-2">
             <label htmlFor="project" className="text-sm font-medium">
-              Tipo de Projeto
+              {isEnglish ? "Project Type" : "Tipo de Projeto"}
             </label>
             <select 
               id="project"
               className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
               required
             >
-              <option value="">Selecione uma opção</option>
-              <option value="institucional">Site Institucional</option>
+              <option value="">{isEnglish ? "Choose an option" : "Selecione uma opção"}</option>
+              <option value="institucional">{isEnglish ? "Business Website" : "Site Institucional"}</option>
               <option value="landing">Landing Page</option>
-              <option value="portfolio">Portfólio</option>
-              <option value="marca">Site de Marca</option>
-              <option value="servicos">Site de Serviços</option>
-              <option value="outro">Outro</option>
+              <option value="portfolio">{isEnglish ? "Portfolio" : "Portfólio"}</option>
+              <option value="marca">{isEnglish ? "Brand Website" : "Site de Marca"}</option>
+              <option value="servicos">{isEnglish ? "Services Website" : "Site de Serviços"}</option>
+              <option value="outro">{isEnglish ? "Other" : "Outro"}</option>
             </select>
           </div>
 
           <div className="space-y-2">
             <label htmlFor="message" className="text-sm font-medium">
-              Mensagem
+              {isEnglish ? "Message" : "Mensagem"}
             </label>
             <Textarea 
               id="message"
-              placeholder="Conte um pouco sobre seu projeto, objetivos e prazos..."
+              placeholder={isEnglish ? "Tell us about your project, goals, and timeline..." : "Conte um pouco sobre seu projeto, objetivos e prazos..."}
               rows={5}
               required
             />
@@ -110,10 +112,10 @@ export function Contact() {
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              "Enviando..."
+              isEnglish ? "Sending..." : "Enviando..."
             ) : (
               <>
-                Enviar Mensagem
+                {isEnglish ? "Send Message" : "Enviar Mensagem"}
                 <Send className="w-4 h-4" />
               </>
             )}
@@ -123,7 +125,7 @@ export function Contact() {
         {/* Alternative Contact */}
         <div className="mt-12 pt-8 border-t border-border">
           <p className="text-center text-muted-foreground mb-6">
-            Ou entre em contato diretamente:
+            {isEnglish ? "Or contact us directly:" : "Ou entre em contato diretamente:"}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <a 

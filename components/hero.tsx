@@ -1,8 +1,13 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Sparkles } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 export function Hero() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en-US"
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16 px-4 overflow-hidden">
       {/* Background Grid */}
@@ -16,7 +21,7 @@ export function Hero() {
         {/* Badge */}
         <Badge variant="outline" className="mb-6 border-accent/50 text-accent gap-2">
           <Sparkles className="w-3 h-3" />
-          Sites Profissionais
+          {isEnglish ? "Professional Websites" : "Sites Profissionais"}
         </Badge>
 
         {/* Main Heading */}
@@ -25,26 +30,27 @@ export function Hero() {
           style={{ fontFamily: 'var(--font-display)' }}
         >
           <span className="text-balance">
-            Transforme sua
+            {isEnglish ? "Transform your" : "Transforme sua"}
             <br />
-            <span className="text-muted-foreground">presença digital</span>
+            <span className="text-muted-foreground">{isEnglish ? "digital presence" : "presença digital"}</span>
           </span>
         </h1>
 
         {/* Subheading */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty">
-          Desenvolvemos sites institucionais e de divulgação de marca com design 
-          moderno, performance otimizada e foco em resultados para seu negócio.
+          {isEnglish
+            ? "We build business and brand websites with modern design, optimized performance, and a focus on results for your business."
+            : "Desenvolvemos sites institucionais e de divulgação de marca com design moderno, performance otimizada e foco em resultados para seu negócio."}
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button size="lg" className="gap-2 px-8">
-            Ver Templates
+            {isEnglish ? "View Templates" : "Ver Templates"}
             <ArrowRight className="w-4 h-4" />
           </Button>
           <Button size="lg" variant="outline" className="gap-2 px-8">
-            Falar com Especialista
+            {isEnglish ? "Talk to an Expert" : "Falar com Especialista"}
           </Button>
         </div>
 
@@ -55,7 +61,7 @@ export function Hero() {
               50+
             </div>
             <div className="text-sm text-muted-foreground mt-1">
-              Sites Entregues
+              {isEnglish ? "Websites Delivered" : "Sites Entregues"}
             </div>
           </div>
           <div>
@@ -63,7 +69,7 @@ export function Hero() {
               100%
             </div>
             <div className="text-sm text-muted-foreground mt-1">
-              Clientes Satisfeitos
+              {isEnglish ? "Satisfied Clients" : "Clientes Satisfeitos"}
             </div>
           </div>
           <div>
@@ -71,7 +77,7 @@ export function Hero() {
               7 dias
             </div>
             <div className="text-sm text-muted-foreground mt-1">
-              Entrega Média
+              {isEnglish ? "Average Delivery" : "Entrega Média"}
             </div>
           </div>
         </div>
