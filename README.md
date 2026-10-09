@@ -10,8 +10,19 @@ This repository is linked to a [v0](https://v0.app) project. You can continue de
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+Install [Node.js](https://nodejs.org/), which includes npm.
+
+### Install dependencies
+
+```bash
+npm ci
+# ou
+npm install
+```
+
+### Start the development Server
 ```bash
 npm run dev
 # or
