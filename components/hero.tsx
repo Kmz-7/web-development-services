@@ -4,10 +4,31 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
+import { motion, useReducedMotion, useSpring, useTransform } from "motion/react"
+import { useState } from "react"
 
 export function Hero() {
   const { language } = useLanguage()
   const isEnglish = language === "en-US"
+  const reduceMotion = useReducedMotion()
+  const [headingHovered, setHeadingHovered] = useState(false)
+  const pointerX = useSpring(0, { stiffness: 180, damping: 20, mass: 0.35 })
+  const pointerY = useSpring(0, { stiffness: 180, damping: 20, mass: 0.35 })
+  const rotateY = useTransform(pointerX, [-1, 1], [-7, 7])
+  const rotateX = useTransform(pointerY, [-1, 1], [5, -5])
+
+  const handleHeadingPointerMove = (event: React.PointerEvent<HTMLHeadingElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse") return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    pointerX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 2)
+    pointerY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 2)
+  }
+
+  const resetHeadingTilt = () => {
+    setHeadingHovered(false)
+    pointerX.set(0)
+    pointerY.set(0)
+  }
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16 px-4 overflow-hidden">
       {/* Background Grid */}
@@ -25,16 +46,24 @@ export function Hero() {
         </Badge>
 
         {/* Main Heading */}
-        <h1 
+        <motion.h1
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          onPointerEnter={() => setHeadingHovered(true)}
+          onPointerMove={handleHeadingPointerMove}
+          onPointerLeave={resetHeadingTilt}
+          onPointerCancel={resetHeadingTilt}
+          style={{ fontFamily: 'var(--font-display)', rotateX: headingHovered && !reduceMotion ? rotateX : 0, rotateY: headingHovered && !reduceMotion ? rotateY : 0, transformPerspective: 800, transformStyle: "preserve-3d", transformOrigin: "center" }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
-          style={{ fontFamily: 'var(--font-display)' }}
         >
           <span className="text-balance">
             {isEnglish ? "Transform your" : "Transforme sua"}
             <br />
             <span className="text-muted-foreground">{isEnglish ? "digital presence" : "presença digital"}</span>
           </span>
-        </h1>
+        </motion.h1>
 
         {/* Subheading */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty">
@@ -55,31 +84,31 @@ export function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-8 mt-20 pt-10 border-t border-border/50">
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+        <div className="grid grid-cols-3 gap-8 mt-40 pt-10 border-t border-border/50">
+          <motion.div tabIndex={0} className="group rounded-xl p-3 focus-visible:outline-none">
+            <motion.div whileHover={reduceMotion ? undefined : { scale: 1.12, textShadow: "0 0 8px rgba(249,115,22,0.9), 0 0 22px rgba(249,115,22,0.65)" }} transition={{ type: "spring", stiffness: 320, damping: 18 }} className="text-3xl md:text-6xl font-bold text-foreground group-focus-visible:[text-shadow:0_0_8px_rgba(249,115,22,0.9),0_0_22px_rgba(249,115,22,0.65)]" style={{ fontFamily: 'var(--font-display)' }}>
               50+
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
+            </motion.div>
+            <div className="text-sm md:text-lg text-muted-foreground mt-1">
               {isEnglish ? "Websites Delivered" : "Sites Entregues"}
             </div>
-          </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+          </motion.div>
+          <motion.div tabIndex={0} className="group rounded-xl p-3 focus-visible:outline-none">
+            <motion.div whileHover={reduceMotion ? undefined : { scale: 1.12, textShadow: "0 0 8px rgba(249,115,22,0.9), 0 0 22px rgba(249,115,22,0.65)" }} transition={{ type: "spring", stiffness: 320, damping: 18 }} className="text-3xl md:text-6xl font-bold text-foreground group-focus-visible:[text-shadow:0_0_8px_rgba(249,115,22,0.9),0_0_22px_rgba(249,115,22,0.65)]" style={{ fontFamily: 'var(--font-display)' }}>
               100%
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
+            </motion.div>
+            <div className="text-sm md:text-lg text-muted-foreground mt-1">
               {isEnglish ? "Satisfied Clients" : "Clientes Satisfeitos"}
             </div>
-          </div>
-          <div>
-            <div className="text-3xl md:text-4xl font-bold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+          </motion.div>
+          <motion.div tabIndex={0} className="group rounded-xl p-3 focus-visible:outline-none">
+            <motion.div whileHover={reduceMotion ? undefined : { scale: 1.12, textShadow: "0 0 8px rgba(249,115,22,0.9), 0 0 22px rgba(249,115,22,0.65)" }} transition={{ type: "spring", stiffness: 320, damping: 18 }} className="text-3xl md:text-6xl font-bold text-foreground group-focus-visible:[text-shadow:0_0_8px_rgba(249,115,22,0.9),0_0_22px_rgba(249,115,22,0.65)]" style={{ fontFamily: 'var(--font-display)' }}>
               7 dias
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
+            </motion.div>
+            <div className="text-sm md:text-lg text-muted-foreground mt-1">
               {isEnglish ? "Average Delivery" : "Entrega Média"}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

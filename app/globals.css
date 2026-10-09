@@ -90,3 +90,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+.page-frame {
+  position: relative;
+  margin: 5.25rem 1rem 1rem;
+  border: 1px solid oklch(0.72 0.19 45 / 0.28);
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .page-frame {
+    margin: 5.75rem 2rem 2rem;
+  }
+}

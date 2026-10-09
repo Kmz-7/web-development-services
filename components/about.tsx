@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle2 } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
+import { motion, useReducedMotion } from "motion/react"
 
 const highlights = [
   "Comunicação clara durante todo o projeto",
@@ -16,6 +17,7 @@ const highlights = [
 export function About() {
   const { language } = useLanguage()
   const isEnglish = language === "en-US"
+  const reduceMotion = useReducedMotion()
   return (
     <section id="sobre" className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -25,11 +27,18 @@ export function About() {
             <Badge variant="outline" className="mb-4 border-accent/50 text-accent">
               {isEnglish ? "About" : "Sobre"}
             </Badge>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+            <motion.h2
+              initial={reduceMotion ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              style={{ fontFamily: 'var(--font-display)' }}
+              className="text-3xl md:text-5xl font-bold mb-6 tracking-tight"
+            >
               {isEnglish ? "Creating memorable" : "Criando experiências"}
               <br />
               <span className="text-muted-foreground">{isEnglish ? "digital experiences" : "digitais memoráveis"}</span>
-            </h2>
+            </motion.h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
                 {isEnglish ? "We specialize in building websites that not only look impressive but also deliver real results for our clients." : "Somos especializados em desenvolver sites que não apenas impressionam visualmente, mas que também geram resultados concretos para nossos clientes."}

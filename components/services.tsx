@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
+import { motion, useReducedMotion } from "motion/react"
 import { 
   Palette, 
   Smartphone, 
@@ -64,6 +65,7 @@ const translations = {
 
 export function Services() {
   const { language } = useLanguage()
+  const reduceMotion = useReducedMotion()
   const t = language === "en-US" ? translations.en : null
   return (
     <section id="servicos" className="py-24 px-4 bg-secondary/30">
@@ -73,9 +75,16 @@ export function Services() {
           <Badge variant="outline" className="mb-4 border-accent/50 text-accent">
             {t?.badge ?? "Serviços"}
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+          <motion.h2
+            initial={reduceMotion ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-3xl md:text-5xl font-bold mb-4 tracking-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {t?.heading ?? "O que oferecemos"}
-          </h2>
+          </motion.h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             {t?.intro ?? "Cada projeto é desenvolvido com atenção aos detalhes e foco em entregar resultados reais para seu negócio."}
           </p>
@@ -84,18 +93,30 @@ export function Services() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
-            <div 
+            <motion.div 
               key={service.title}
-              className="p-6 rounded-xl border border-border bg-card hover:border-accent/50 transition-colors group"
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: (services.indexOf(service) % 3) * 0.08, ease: "easeOut" }}
+              whileHover={reduceMotion ? undefined : { y: -4 }}
+              className="p-6 rounded-xl border border-border bg-card hover:border-accent/70 hover:shadow-[0_0_24px_rgba(249,115,22,0.12)] transition-colors group"
             >
               <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                <service.icon className="w-6 h-6 text-accent" />
+                <motion.span
+                  className="flex"
+                  whileHover={reduceMotion ? undefined : { scale: 1.22, rotate: 4 }}
+                  whileFocus={reduceMotion ? undefined : { scale: 1.18 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 16 }}
+                >
+                  <service.icon className="w-6 h-6 text-accent" />
+                </motion.span>
               </div>
               <h3 className="font-semibold text-lg mb-2">{t?.titles[services.indexOf(service)] ?? service.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {t?.descriptions[services.indexOf(service)] ?? service.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 

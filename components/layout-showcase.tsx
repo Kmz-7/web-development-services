@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Eye } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
+import { motion, useReducedMotion } from "motion/react"
 
 interface LayoutTemplate {
   id: string
@@ -158,6 +159,7 @@ function LayoutCard({ template, language }: { template: LayoutTemplate; language
 
 export function LayoutShowcase() {
   const { language } = useLanguage()
+  const reduceMotion = useReducedMotion()
   const isEnglish = language === "en-US"
   return (
     <section id="templates" className="py-24 px-4">
@@ -167,11 +169,18 @@ export function LayoutShowcase() {
           <Badge variant="outline" className="mb-4 border-accent/50 text-accent">
             Templates
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+          <motion.h2
+            initial={reduceMotion ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-3xl md:text-5xl font-bold mb-4 tracking-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {isEnglish ? "Choose the ideal layout" : "Escolha o layout ideal"}
             <br />
             <span className="text-muted-foreground">{isEnglish ? "for your business" : "para seu negócio"}</span>
-          </h2>
+          </motion.h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             {isEnglish ? "Hover over each layout to preview the full page. All templates are customizable and optimized for conversions." : "Passe o mouse sobre cada layout para visualizar a página completa. Todos os templates são personalizáveis e otimizados para conversão."}
           </p>

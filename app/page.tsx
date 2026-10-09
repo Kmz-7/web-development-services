@@ -10,12 +10,14 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Header />
-      <Hero />
-      <LayoutShowcase />
-      <Services />
-      <About />
-      <Contact />
-      <Footer />
+      <div className="page-frame">
+        <Hero />
+        <LayoutShowcase />
+        <Services />
+        <About />
+        <Contact />
+        <Footer />
+      </div>
     </main>
   )
 }
